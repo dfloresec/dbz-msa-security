@@ -1,4 +1,4 @@
-package ec.com.security.controller.domain;
+package ec.com.security.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

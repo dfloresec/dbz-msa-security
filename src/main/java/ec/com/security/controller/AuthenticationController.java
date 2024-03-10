@@ -29,8 +29,8 @@ public class AuthenticationController {
 	@PostMapping(value = "/validateToken")
 	@ResponseStatus(HttpStatus.OK)
 	private void validateToken(@RequestHeader("Authorization") String bearerToken,
-			@RequestBody RequestTokenDto request) {
-		authenticationService.validateToken(bearerToken, request);
+			@RequestHeader("clientSecret") String clientSecret) {
+		authenticationService.validateToken(bearerToken, clientSecret);
 	}
 
 }

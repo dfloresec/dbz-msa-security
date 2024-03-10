@@ -54,7 +54,7 @@ public class AuthenticationService {
 		return map;
 	}
 
-	public void validateToken(String token, RequestTokenDto request) {
+	public void validateToken(String token, String clientSecret) {
 		if (token == null) {
 			throw new TokenFailedException("60 Token required");
 		}
@@ -62,15 +62,12 @@ public class AuthenticationService {
 			DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(key.getBytes())).build()
 					.verify(token.replace(TOKEN_PREFIX, ""));
 
-			if (!clientSecret.equals(request.getClientSecret())) {
+			if (!clientSecret.equals(clientSecret)) {
 				throw new TokenFailedException("61 Unauthorized Token. ClientSecret no válido");
 			}
-			UserDto user = userService.getUser(request.getUser());
+			UserDto user = userService.getUser(decodedJWT.getSubject());
 			if (user == null) {
 				throw new TokenFailedException("62 Unauthorized Token. User no existe");
-			}
-			if (!user.getUsermane().equals(decodedJWT.getSubject())) {
-				throw new TokenFailedException("63 Unauthorized Token. User no coincide con el token");
 			}
 		} catch (Exception e) {
 			throw new TokenFailedException("64 Unauthorized Token. " + e.getMessage());

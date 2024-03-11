@@ -1,4 +1,4 @@
-package ec.com.security;
+package ec.com.security.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -14,10 +14,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ec.com.security.domain.UsersEntity;
 import ec.com.security.repository.UserRepository;
-import ec.com.security.service.UserService;
 import ec.com.security.service.dto.UserDto;
 
-//@SpringBootTest
 @ExtendWith(SpringExtension.class)
 public class UserServiceTest {
 
@@ -27,14 +25,8 @@ public class UserServiceTest {
 	@Mock
 	UserRepository userRepository;
 
-//	@Test
-//	void saveUser() {
-//		UsersEntity users = UsersMapper.INSTANCE.toUsersEntity(userDto);
-//		userRepository.save(users);
-//	}
-
 	@Test
-	void getUser() {
+	void givenUserWhenGetUserByIdThenReturnUsername() {
 		String username = "dfloresg";
 
 		UsersEntity usersEntity = new UsersEntity();
